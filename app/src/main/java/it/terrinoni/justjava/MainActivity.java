@@ -5,8 +5,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import java.text.NumberFormat;
-
 /**
  * This app displays an order form to order coffee.
  */
@@ -28,10 +26,20 @@ public class MainActivity extends ActionBarActivity {
         displayMessage(msg);
     }
 
+    /**
+     * Increments the quantity value.
+     *
+     * @param view
+     */
     public void increment(View view) {
         display(++quantity);
     }
 
+    /**
+     * Decrements the quantity value.
+     *
+     * @param view
+     */
     public void decrement(View view) {
         display(--quantity);
     }
@@ -52,6 +60,12 @@ public class MainActivity extends ActionBarActivity {
         orderSummaryTextView.setText(message);
     }
 
+    /**
+     * Creates and order summary.
+     *
+     * @param price
+     * @return
+     */
     private String createOrderSummary(int price) {
         String msg = "Name: Captain Terry\nQuantity: " + String.valueOf(quantity) + "\nTotal: " +
                 (quantity * price) + " €\nThank you";
