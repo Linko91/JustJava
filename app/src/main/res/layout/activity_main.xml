@@ -14,9 +14,17 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         tools:context="it.terrinoni.justjava.MainActivity">
 
+        <EditText
+            android:id="@+id/name_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name"
+            android:inputType="textCapWords"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:text="Toppings"
             android:textAllCaps="true"/>
@@ -30,7 +38,7 @@
             android:textSize="16sp"/>
 
         <CheckBox
-            android:id="@+id/choccolate_check"
+            android:id="@+id/chocolate_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"

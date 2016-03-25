@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 /**
@@ -12,6 +13,9 @@ import android.widget.TextView;
 public class MainActivity extends ActionBarActivity {
 
     private int quantity = 0;
+    private int priceWippedCream = 1;
+    private int priceChocolate = 2;
+    private int basePrice = 5;
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -23,12 +27,42 @@ public class MainActivity extends ActionBarActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder (View view) {
+        // Retrieve the specified name
+        EditText edtText = (EditText) findViewById(R.id.name_edit_text);
+        String name = edtText.getText().toString();
+
+        // Check if whipped cream is selected
         CheckBox chkBox = (CheckBox) findViewById(R.id.whipped_cream_check);
         boolean hasWhippedCream = chkBox.isChecked();
-        chkBox = (CheckBox) findViewById(R.id.choccolate_check);
+
+        // Check if chocolate is selected
+        chkBox = (CheckBox) findViewById(R.id.chocolate_check);
         boolean hasChocolate = chkBox.isChecked();
-        String msg = createOrderSummary(5, hasWhippedCream, hasChocolate);
+
+        int finalPrice = calculatePrice(hasWhippedCream, hasChocolate);
+
+        // Show the message
+        String msg = createOrderSummary(name, finalPrice, hasWhippedCream, hasChocolate);
         displayMessage(msg);
+    }
+
+    /**
+     *
+     * @param hasWhippedCream
+     * @param hasChocolate
+     * @return
+     */
+    private int calculatePrice (boolean hasWhippedCream, boolean hasChocolate) {
+        int finalPrice = basePrice;
+        if (hasWhippedCream) {
+            finalPrice += priceWippedCream;
+        }
+        if (hasChocolate) {
+            finalPrice += priceChocolate;
+        }
+        finalPrice *= quantity;
+
+        return finalPrice;
     }
 
     /**
@@ -68,18 +102,18 @@ public class MainActivity extends ActionBarActivity {
     /**
      * Creates and order summary.
      *
-     * @param price of the order
+     * @param finalPrice      of the order
      * @param hasWhippedCream is whether or not the user wants whipped cream topping
-     * @param hasChocolate is whether or not the user wants whipped cream topping
+     * @param hasChocolate    is whether or not the user wants whipped cream topping
      * @return text summary
      */
-    private String createOrderSummary (int price, boolean hasWhippedCream, boolean hasChocolate) {
-        String msg = "Name: Captain Terry\n";
-        msg += "Add whipped cream? " + hasWhippedCream + "\n";
-        msg += "Add chocolate? " + hasChocolate + "\n";
-        msg += "Quantity: " + String.valueOf(quantity) + "\n";
-        msg += "Total: " + (quantity * price) + " €\n";
-        msg += "Thank you!";
+    private String createOrderSummary (String name, int finalPrice, boolean hasWhippedCream, boolean hasChocolate) {
+        String msg = "Name: " + name + "\n" +
+                "Add whipped cream? " + hasWhippedCream + "\n" +
+                "Add chocolate? " + hasChocolate + "\n" +
+                "Quantity: " + String.valueOf(quantity) + "\n" +
+                "Total: " + String.valueOf(finalPrice) + " €\n" +
+                "Thank you!";
         return msg;
     }
 }
