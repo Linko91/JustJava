@@ -23,7 +23,11 @@ public class MainActivity extends ActionBarActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder (View view) {
-        String msg = createOrderSummary(5);
+        CheckBox chkBox = (CheckBox) findViewById(R.id.whipped_cream_check);
+        boolean hasWhippedCream = chkBox.isChecked();
+        chkBox = (CheckBox) findViewById(R.id.choccolate_check);
+        boolean hasChocolate = chkBox.isChecked();
+        String msg = createOrderSummary(5, hasWhippedCream, hasChocolate);
         displayMessage(msg);
     }
 
@@ -64,14 +68,18 @@ public class MainActivity extends ActionBarActivity {
     /**
      * Creates and order summary.
      *
-     * @param price
-     * @return
+     * @param price of the order
+     * @param hasWhippedCream is whether or not the user wants whipped cream topping
+     * @param hasChocolate is whether or not the user wants whipped cream topping
+     * @return text summary
      */
-    private String createOrderSummary (int price) {
-        CheckBox chkBox = (CheckBox) findViewById(R.id.whipped_cream_check);
-        String msg = "Name: Captain Terry\nAdd whipped cream? " +
-                String.valueOf(chkBox.isChecked()) + "\nQuantity: " + String.valueOf(quantity) +
-                "\nTotal: " + (quantity * price) + " €\nThank you";
+    private String createOrderSummary (int price, boolean hasWhippedCream, boolean hasChocolate) {
+        String msg = "Name: Captain Terry\n";
+        msg += "Add whipped cream? " + hasWhippedCream + "\n";
+        msg += "Add chocolate? " + hasChocolate + "\n";
+        msg += "Quantity: " + String.valueOf(quantity) + "\n";
+        msg += "Total: " + (quantity * price) + " €\n";
+        msg += "Thank you!";
         return msg;
     }
 }
