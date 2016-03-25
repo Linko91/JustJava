@@ -1,18 +1,21 @@
 package it.terrinoni.justjava;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * This app displays an order form to order coffee.
  */
 public class MainActivity extends ActionBarActivity {
 
-    private int quantity = 0;
+    private int quantity = 1;
     private int priceWippedCream = 1;
     private int priceChocolate = 2;
     private int basePrice = 5;
@@ -43,11 +46,17 @@ public class MainActivity extends ActionBarActivity {
 
         // Show the message
         String msg = createOrderSummary(name, finalPrice, hasWhippedCream, hasChocolate);
-        displayMessage(msg);
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_SUBJECT, "JustJava order for " + name);
+        intent.putExtra(Intent.EXTRA_TEXT, msg); // specify the email content
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+//        displayMessage(msg);
     }
 
     /**
-     *
      * @param hasWhippedCream
      * @param hasChocolate
      * @return
@@ -71,7 +80,11 @@ public class MainActivity extends ActionBarActivity {
      * @param view
      */
     public void increment (View view) {
-        display(++quantity);
+        if (quantity == 100) {
+            Toast.makeText(this, "You're exceeding the maximum quantity of coffees", Toast.LENGTH_SHORT).show();
+        } else {
+            display(++quantity);
+        }
     }
 
     /**
@@ -80,7 +93,11 @@ public class MainActivity extends ActionBarActivity {
      * @param view
      */
     public void decrement (View view) {
-        display(--quantity);
+        if (quantity == 1) {
+            Toast.makeText(this, "You're exceeding the minimum quantity of coffees", Toast.LENGTH_SHORT).show();
+        } else {
+            display(--quantity);
+        }
     }
 
     /**
@@ -94,10 +111,10 @@ public class MainActivity extends ActionBarActivity {
     /**
      * This method displays the given text on the screen.
      */
-    private void displayMessage (String message) {
-        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
-        orderSummaryTextView.setText(message);
-    }
+//    private void displayMessage (String message) {
+//        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
+//        orderSummaryTextView.setText(message);
+//    }
 
     /**
      * Creates and order summary.

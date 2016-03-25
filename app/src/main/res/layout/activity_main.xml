@@ -24,8 +24,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
             android:text="Toppings"
             android:textAllCaps="true"/>
 
@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:text="0"
+                android:text="1"
                 android:textColor="@android:color/black"/>
 
             <Button
@@ -82,7 +82,7 @@
                 android:textAllCaps="true"/>
         </LinearLayout>
 
-        <TextView
+        <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -96,11 +96,12 @@
             android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
             android:text="-"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/black"/>-->
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:onClick="submitOrder"
             android:text="Order"
             android:textAllCaps="true"/>
