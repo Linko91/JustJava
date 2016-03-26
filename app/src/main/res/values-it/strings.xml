@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="name">Nome</string>
+    <string name="toppings">Aggiunte</string>
+    <string name="whipped_cream">Panna</string>
+    <string name="chocolate">Cioccolato</string>
+    <string name="quantity">Quantità</string>
+    <string name="order">Ordina</string>
+    <string name="mail_subject">Ordine JustJava per</string>
+    <string name="inc_toast_msg">Limite massimo di caffè raggiunto</string>
+    <string name="dec_toast_msg">Limite minimo di caffè raggiunto</string>
+    <string name="summary_name">Nome:</string>
+    <string name="summary_add_whipped_cream">Aggiunta di panna?</string>
+    <string name="summary_add_chocolate">aggiunta di cioccolato?</string>
+    <string name="summary_quantity">Quantità:</string>
+    <string name="summary_total">Totale:</string>
+    <string name="summary_thank_you">Grazie!</string>
+</resources>

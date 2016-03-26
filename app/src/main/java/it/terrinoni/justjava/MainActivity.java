@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.NumberFormat;
+
 /**
  * This app displays an order form to order coffee.
  */
@@ -48,12 +50,12 @@ public class MainActivity extends ActionBarActivity {
         String msg = createOrderSummary(name, finalPrice, hasWhippedCream, hasChocolate);
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:")); // only email apps should handle this
-        intent.putExtra(Intent.EXTRA_SUBJECT, "JustJava order for " + name);
+        intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.mail_subject) + name);
         intent.putExtra(Intent.EXTRA_TEXT, msg); // specify the email content
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }
-//        displayMessage(msg);
+        //displayMessage(msg);
     }
 
     /**
@@ -81,7 +83,7 @@ public class MainActivity extends ActionBarActivity {
      */
     public void increment (View view) {
         if (quantity == 100) {
-            Toast.makeText(this, "You're exceeding the maximum quantity of coffees", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.inc_toast_msg), Toast.LENGTH_SHORT).show();
         } else {
             display(++quantity);
         }
@@ -94,7 +96,7 @@ public class MainActivity extends ActionBarActivity {
      */
     public void decrement (View view) {
         if (quantity == 1) {
-            Toast.makeText(this, "You're exceeding the minimum quantity of coffees", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.dec_toast_msg), Toast.LENGTH_SHORT).show();
         } else {
             display(--quantity);
         }
@@ -111,10 +113,10 @@ public class MainActivity extends ActionBarActivity {
     /**
      * This method displays the given text on the screen.
      */
-//    private void displayMessage (String message) {
-//        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
-//        orderSummaryTextView.setText(message);
-//    }
+    //    private void displayMessage (String message) {
+    //        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
+    //        orderSummaryTextView.setText(message);
+    //    }
 
     /**
      * Creates and order summary.
@@ -125,12 +127,13 @@ public class MainActivity extends ActionBarActivity {
      * @return text summary
      */
     private String createOrderSummary (String name, int finalPrice, boolean hasWhippedCream, boolean hasChocolate) {
-        String msg = "Name: " + name + "\n" +
-                "Add whipped cream? " + hasWhippedCream + "\n" +
-                "Add chocolate? " + hasChocolate + "\n" +
-                "Quantity: " + String.valueOf(quantity) + "\n" +
-                "Total: " + String.valueOf(finalPrice) + " €\n" +
-                "Thank you!";
+        String msg = getResources().getString(R.string.summary_name) + name + "\n" +
+                getResources().getString(R.string.summary_add_whipped_cream) + hasWhippedCream + "\n" +
+                getResources().getString(R.string.summary_add_chocolate) + hasChocolate + "\n" +
+                getResources().getString(R.string.quantity) + String.valueOf(quantity) + "\n" +
+                getResources().getString(R.string.summary_total) + " " +
+                NumberFormat.getCurrencyInstance().format(finalPrice) + "\n" +
+                getResources().getString(R.string.summary_thank_you);
         return msg;
     }
 }
